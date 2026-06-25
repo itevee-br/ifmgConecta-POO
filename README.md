@@ -19,6 +19,7 @@ Programacao Orientada a Objetos.
 - Python 3
 - JSON para persistencia
 - Terminal como interface
+- Simulação Grafica em Site
 
 ## 📋 Requisitos Atendidos
 
