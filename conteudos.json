@@ -1,0 +1,36 @@
+[
+    {
+        "tipo": "evento",
+        "titulo": "Workshop de Python",
+        "descricao": "Aprenda Python do zero",
+        "data": "15/07/2026",
+        "local": "Online"
+    },
+    {
+        "tipo": "evento",
+        "titulo": "Feira de Livros",
+        "descricao": "Troca de livros gratuita",
+        "data": "20/07/2026",
+        "local": "Praca Central"
+    },
+    {
+        "tipo": "curso",
+        "titulo": "Financas Pessoais",
+        "descricao": "Aprenda a organizar suas financas",
+        "link": "https://cursogratis.com/financas"
+    },
+    {
+        "tipo": "evento",
+        "titulo": "Revisão de Calculo 2",
+        "descricao": "Revisão de exercicios e conteudo da prova",
+        "data": "26/06/2026",
+        "local": "escola"
+    },
+    {
+        "tipo": "evento",
+        "titulo": "Testando Slide",
+        "descricao": "Evento teste para o slide do trabalho",
+        "data": "225/06/2026",
+        "local": "IFMG"
+    }
+]

@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFMG CONECTA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #020617;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* ── TOKENS ── */
+:root {
+  --green:    #22c55e;
+  --green-d:  #16a34a;
+  --green-gl: rgba(34,197,94,0.18);
+  --blue:     #3b82f6;
+  --amber:    #f59e0b;
+  --red:      #ef4444;
+  --slate-50: #f8fafc;
+  --slate-100:#f1f5f9;
+  --slate-200:#e2e8f0;
+  --slate-400:#94a3b8;
+  --slate-500:#64748b;
+  --slate-700:#334155;
+  --slate-800:#1e293b;
+  --slate-900:#0f172a;
+  --radius: 1rem;
+  --shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+
+/* ── LAYOUT ── */
+.page { display: flex; flex-direction: column; min-height: 100vh; }
+.bg-glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(34,197,94,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(59,130,246,0.12) 0%, transparent 60%);
+}
+.container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 1.25rem; position: relative; z-index: 1; }
+
+/* ── HEADER ── */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(20px);
+  background: rgba(2,6,23,0.88);
+  border-bottom: 1px solid rgba(148,163,184,0.12);
+}
+.header-inner {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.85rem 0; justify-content: space-between;
+}
+.brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.brand-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green) 0%, #064e3b 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(34,197,94,0.5);
+}
+.brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; letter-spacing: 0.04em; }
+.brand-sub { font-size: 0.7rem; color: var(--slate-400); }
+.nav { display: flex; align-items: center; gap: 0.25rem; }
+.nav-btn {
+  background: transparent; border: 1px solid transparent;
+  color: var(--slate-200); padding: 0.4rem 0.9rem; border-radius: 999px;
+  cursor: pointer; font: inherit; font-size: 0.875rem;
+  transition: all 0.15s;
+}
+.nav-btn:hover { border-color: rgba(34,197,94,0.5); color: #dcfce7; background: rgba(34,197,94,0.06); }
+.nav-btn.active { border-color: var(--green); color: var(--green); }
+.nav-sep { width: 1px; height: 18px; background: rgba(148,163,184,0.2); margin: 0 0.25rem; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.2rem; border-radius: 999px;
+  font: inherit; font-size: 0.875rem; font-weight: 500;
+  cursor: pointer; transition: all 0.15s; border: 1px solid transparent;
+  text-decoration: none;
+}
+.btn-primary { background: var(--green); color: #022c22; border-color: var(--green); }
+.btn-primary:hover { background: var(--green-d); box-shadow: 0 0 20px rgba(34,197,94,0.4); }
+.btn-ghost { background: transparent; color: var(--slate-200); border-color: rgba(148,163,184,0.3); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+.btn-danger { background: transparent; color: var(--red); border-color: rgba(239,68,68,0.4); }
+.btn-danger:hover { background: rgba(239,68,68,0.1); }
+.btn-sm { padding: 0.35rem 0.85rem; font-size: 0.8rem; }
+.btn-full { width: 100%; justify-content: center; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── HERO ── */
+.hero {
+  padding: 4rem 0 3rem;
+  text-align: center;
+  position: relative; z-index: 1;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--green-gl); border: 1px solid rgba(34,197,94,0.3);
+  color: var(--green); border-radius: 999px; padding: 0.3rem 0.9rem;
+  font-size: 0.8rem; font-weight: 500; margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700;
+  line-height: 1.15; margin-bottom: 1rem; color: #fff;
+}
+.hero h1 em { font-style: normal; color: var(--green); }
+.hero-desc { color: var(--slate-400); max-width: 560px; margin: 0 auto 2rem; line-height: 1.65; }
+.hero-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.hero-stats { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+.stat-box { text-align: center; }
+.stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--green); }
+.stat-lbl { font-size: 0.75rem; color: var(--slate-400); }
+
+/* ── SECTIONS ── */
+.section { padding: 2.5rem 0; position: relative; z-index: 1; }
+.section-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.25rem; }
+
+/* ── TOOLBAR ── */
+.toolbar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+.search-wrap input {
+  width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem;
+  background: rgba(30,41,59,0.7); border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 999px; color: var(--slate-200); font: inherit; font-size: 0.9rem;
+  transition: border-color 0.15s;
+}
+.search-wrap input:focus { outline: none; border-color: var(--green); }
+.search-wrap .icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--slate-500); font-size: 0.9rem; }
+.filter-select {
+  padding: 0.6rem 1rem; background: rgba(30,41,59,0.7);
+  border: 1px solid rgba(148,163,184,0.2); border-radius: 999px;
+  color: var(--slate-200); font: inherit; font-size: 0.875rem; cursor: pointer;
+}
+.filter-select:focus { outline: none; border-color: var(--green); }
+.filter-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.pill {
+  padding: 0.3rem 0.85rem; border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.25); background: transparent;
+  color: var(--slate-400); font: inherit; font-size: 0.8rem; cursor: pointer;
+  transition: all 0.15s;
+}
+.pill:hover, .pill.active { border-color: var(--green); color: var(--green); background: var(--green-gl); }
+
+/* ── CARDS GRID ── */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+.card {
+  background: rgba(15,23,42,0.8); border: 1px solid rgba(148,163,184,0.1);
+  border-radius: var(--radius); padding: 1.25rem;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(34,197,94,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.card:hover { border-color: rgba(34,197,94,0.35); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+.card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+.card-badges { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 0.2rem;
+  padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 500;
+}
+.badge-evento { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+.badge-curso  { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+.badge-free   { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+.badge-paid   { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
+.card-fav {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--slate-500); font-size: 1.1rem; padding: 0.25rem;
+  transition: color 0.15s, transform 0.15s; line-height: 1;
+}
+.card-fav:hover { transform: scale(1.2); }
+.card-fav.active { color: var(--amber); }
+.card-title { font-weight: 600; font-size: 0.95rem; line-height: 1.4; color: #fff; }
+.card-meta { font-size: 0.78rem; color: var(--slate-400); display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.card-meta span { display: flex; align-items: center; gap: 0.25rem; }
+.card-desc { font-size: 0.85rem; color: var(--slate-400); line-height: 1.55; flex: 1; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: auto; }
+.card-actions { display: flex; gap: 0.5rem; }
+.card-date { font-size: 0.72rem; color: var(--slate-500); }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center; padding: 4rem 1rem; color: var(--slate-500);
+  grid-column: 1/-1;
+}
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.empty-state p { font-size: 0.9rem; }
+
+/* ── MODAL / DIALOG ── */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+  z-index: 100; display: flex; align-items: center; justify-content: center;
+  padding: 1rem; backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.modal-backdrop.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--slate-900); border: 1px solid rgba(148,163,184,0.15);
+  border-radius: 1.25rem; padding: 1.75rem; width: 100%; max-width: 500px;
+  box-shadow: var(--shadow); transform: translateY(16px); transition: transform 0.2s;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-backdrop.open .modal { transform: translateY(0); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.modal-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; }
+.modal-close {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--slate-400); font-size: 1.3rem; line-height: 1; padding: 0.25rem;
+  transition: color 0.15s;
+}
+.modal-close:hover { color: #fff; }
+
+/* ── FORMS ── */
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.9rem; }
+.form-group label { font-size: 0.8rem; font-weight: 500; color: var(--slate-400); }
+.form-input, .form-select, .form-textarea {
+  padding: 0.6rem 0.9rem; background: rgba(30,41,59,0.8);
+  border: 1px solid rgba(148,163,184,0.2); border-radius: 0.6rem;
+  color: var(--slate-100); font: inherit; font-size: 0.875rem;
+  transition: border-color 0.15s; width: 100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--green); }
+.form-textarea { resize: vertical; min-height: 80px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.form-hint { font-size: 0.75rem; color: var(--slate-500); }
+.form-error { font-size: 0.75rem; color: var(--red); }
+
+/* ── TABS ── */
+.tabs { display: flex; border-bottom: 1px solid rgba(148,163,184,0.1); margin-bottom: 1.25rem; }
+.tab-btn {
+  background: transparent; border: none; border-bottom: 2px solid transparent;
+  padding: 0.6rem 1rem; cursor: pointer; font: inherit; font-size: 0.875rem;
+  color: var(--slate-400); transition: all 0.15s; margin-bottom: -1px;
+}
+.tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* ── NOTIFICATION ── */
+.notifications {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  z-index: 200; display: flex; flex-direction: column; gap: 0.5rem;
+  pointer-events: none; max-width: 320px;
+}
+.notif {
+  padding: 0.75rem 1rem; border-radius: 0.75rem;
+  font-size: 0.85rem; font-weight: 500;
+  display: flex; align-items: center; gap: 0.5rem;
+  animation: slideIn 0.2s ease; pointer-events: all;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.notif-success { background: rgba(21,128,61,0.95); color: #dcfce7; border: 1px solid rgba(34,197,94,0.4); }
+.notif-error   { background: rgba(153,27,27,0.95); color: #fee2e2; border: 1px solid rgba(239,68,68,0.4); }
+.notif-info    { background: rgba(30,64,175,0.95); color: #dbeafe; border: 1px solid rgba(59,130,246,0.4); }
+.notif-warning { background: rgba(146,64,14,0.95); color: #fef3c7; border: 1px solid rgba(245,158,11,0.4); }
+@keyframes slideIn { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+
+/* ── USER PANEL ── */
+.user-pill {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(30,41,59,0.7); border: 1px solid rgba(148,163,184,0.15);
+  border-radius: 999px; padding: 0.3rem 0.75rem;
+  font-size: 0.82rem; color: var(--slate-200);
+}
+.user-pill .avatar {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green), #064e3b);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: #022c22;
+}
+.admin-badge { font-size: 0.65rem; background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); border-radius: 999px; padding: 0.1rem 0.4rem; }
+
+/* ── ADMIN PANEL ── */
+.admin-section {
+  background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.15);
+  border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem;
+}
+.admin-section-title { font-size: 0.85rem; font-weight: 600; color: var(--amber); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+
+/* ── FAVORITOS PAGE ── */
+.favs-empty { text-align: center; padding: 3rem; color: var(--slate-500); }
+
+/* ── USUARIOS TABLE ── */
+.users-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.users-table th { text-align: left; padding: 0.6rem 0.75rem; color: var(--slate-400); font-weight: 500; border-bottom: 1px solid rgba(148,163,184,0.1); }
+.users-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(148,163,184,0.06); color: var(--slate-200); }
+.users-table tr:hover td { background: rgba(30,41,59,0.4); }
+
+/* ── FOOTER ── */
+.site-footer {
+  margin-top: auto; border-top: 1px solid rgba(148,163,184,0.1);
+  padding: 1.25rem 0; position: relative; z-index: 1;
+}
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-text { font-size: 0.8rem; color: var(--slate-500); }
+.footer-link { font-size: 0.8rem; color: var(--slate-400); text-decoration: none; }
+.footer-link:hover { color: var(--green); }
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.8rem; }
+  .hero-stats { gap: 1.25rem; }
+  .nav { gap: 0.15rem; }
+  .nav-btn { padding: 0.35rem 0.6rem; font-size: 0.8rem; }
+}
+
+/* ── DETAILS (accordion) ── */
+details.card { cursor: auto; }
+details.card > summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; color: var(--green); list-style: none; padding: 0; }
+details.card > summary::marker, details.card > summary::-webkit-details-marker { display: none; }
+details.card[open] > summary { margin-bottom: 1rem; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.4); }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid rgba(148,163,184,0.1); margin: 1.25rem 0; }
+
+/* Results count */
+.results-info { font-size: 0.8rem; color: var(--slate-500); margin-bottom: 1rem; }
+
+/* Highlight ── */
+.hl { color: var(--green); }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="bg-glow"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#" onclick="navTo('home'); return false;">
+      <div class="brand-icon">🎓</div>
+      <div>
+        <div class="brand-name">IFMG CONECTA</div>
+        <div class="brand-sub">Plataforma de lazer e educação</div>
+      </div>
+    </a>
+    <nav class="nav" id="main-nav">
+      <button class="nav-btn active" onclick="navTo('home')" data-view="home">🏠 Início</button>
+      <button class="nav-btn" onclick="navTo('explore')" data-view="explore">🔍 Explorar</button>
+      <button class="nav-btn" onclick="navTo('favs')" data-view="favs" id="nav-favs" hidden>⭐ Favoritos</button>
+      <button class="nav-btn" onclick="navTo('admin')" data-view="admin" id="nav-admin" hidden>🛡 Admin</button>
+      <div class="nav-sep"></div>
+      <div id="auth-area"></div>
+    </nav>
+  </div>
+</header>
+
+<!-- MAIN CONTENT AREA (views) -->
+<main style="flex:1; position:relative; z-index:1;">
+
+  <!-- ── VIEW: HOME ── -->
+  <div id="view-home" class="view active">
+    <div class="container">
+      <div class="hero">
+        <div class="hero-tag">✨ Plataforma Acadêmica IFMG</div>
+        <h1>Conecte-se com <em>eventos e cursos</em><br>que importam</h1>
+        <p class="hero-desc">Descubra eventos locais, cursos gratuitos e oportunidades de aprendizado — tudo em um só lugar, com sistema completo de favoritos e gerenciamento.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="navTo('explore')">🔍 Explorar conteúdos</button>
+          <button class="btn btn-ghost" id="btn-hero-auth" onclick="openModal('auth')">👤 Criar conta</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box"><div class="stat-num" id="stat-conteudos">0</div><div class="stat-lbl">Conteúdos</div></div>
+          <div class="stat-box"><div class="stat-num" id="stat-eventos">0</div><div class="stat-lbl">Eventos</div></div>
+          <div class="stat-box"><div class="stat-num" id="stat-cursos">0</div><div class="stat-lbl">Cursos</div></div>
+          <div class="stat-box"><div class="stat-num" id="stat-usuarios">0</div><div class="stat-lbl">Usuários</div></div>
+        </div>
+      </div>
+
+      <!-- Recent cards preview -->
+      <div class="section">
+        <div class="section-title">Últimos adicionados</div>
+        <div class="cards-grid" id="home-cards"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: EXPLORE ── -->
+  <div id="view-explore" class="view">
+    <div class="container">
+      <div class="section">
+        <div class="section-title">Explorar conteúdos</div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <span class="icon">🔍</span>
+            <input id="search-input" type="search" placeholder="Buscar por título ou descrição…" oninput="renderExplore()">
+          </div>
+          <select class="filter-select" id="filter-tipo" onchange="renderExplore()">
+            <option value="">Todos os tipos</option>
+            <option value="Evento">Eventos</option>
+            <option value="Curso">Cursos</option>
+          </select>
+          <select class="filter-select" id="filter-cat" onchange="renderExplore()">
+            <option value="">Todas as categorias</option>
+          </select>
+          <select class="filter-select" id="filter-cidade" onchange="renderExplore()">
+            <option value="">Todas as cidades</option>
+          </select>
+        </div>
+        <div class="results-info" id="results-info"></div>
+        <div class="cards-grid" id="explore-cards"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: FAVORITOS ── -->
+  <div id="view-favs" class="view">
+    <div class="container">
+      <div class="section">
+        <div class="section-title">⭐ Meus Favoritos</div>
+        <div class="cards-grid" id="favs-cards"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: ADMIN ── -->
+  <div id="view-admin" class="view">
+    <div class="container">
+      <div class="section">
+        <div class="section-title">🛡 Painel Administrativo</div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="adminTab('conteudos')">Conteúdos</button>
+          <button class="tab-btn" onclick="adminTab('usuarios')">Usuários</button>
+          <button class="tab-btn" onclick="adminTab('novo')">+ Novo conteúdo</button>
+        </div>
+
+        <!-- Tab: conteúdos -->
+        <div id="admin-tab-conteudos">
+          <div class="cards-grid" id="admin-cards"></div>
+        </div>
+
+        <!-- Tab: usuários -->
+        <div id="admin-tab-usuarios" style="display:none;">
+          <div style="overflow-x:auto;">
+            <table class="users-table" id="admin-users-table">
+              <thead><tr><th>Nome</th><th>Email</th><th>Tipo</th><th>Cidade</th><th>Favs</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab: novo -->
+        <div id="admin-tab-novo" style="display:none;">
+          <div class="admin-section">
+            <div class="admin-section-title">📋 Cadastrar novo conteúdo</div>
+            <div class="tabs" style="margin-bottom:1rem;">
+              <button class="tab-btn active" onclick="newContentTab('evento')" id="nc-tab-evento">Evento</button>
+              <button class="tab-btn" onclick="newContentTab('curso')" id="nc-tab-curso">Curso</button>
+            </div>
+
+            <!-- Evento form -->
+            <div id="nc-evento">
+              <div class="form-row">
+                <div class="form-group"><label>Título *</label><input class="form-input" id="ev-titulo" placeholder="Nome do evento"></div>
+                <div class="form-group"><label>Categoria *</label><input class="form-input" id="ev-cat" placeholder="Ex: Tecnologia"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Cidade *</label><input class="form-input" id="ev-cidade" placeholder="Ex: Belo Horizonte"></div>
+                <div class="form-group"><label>Local *</label><input class="form-input" id="ev-local" placeholder="Ex: Auditório IFMG"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Data e hora *</label><input class="form-input" id="ev-data" type="datetime-local"></div>
+                <div class="form-group"><label>Gratuito?</label>
+                  <select class="form-select" id="ev-gratuito">
+                    <option value="true">✅ Gratuito</option>
+                    <option value="false">💰 Pago</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group"><label>Descrição *</label><textarea class="form-textarea" id="ev-desc" placeholder="Descreva o evento…"></textarea></div>
+              <button class="btn btn-primary" onclick="cadastrarEvento()">✚ Cadastrar Evento</button>
+            </div>
+
+            <!-- Curso form -->
+            <div id="nc-curso" style="display:none;">
+              <div class="form-row">
+                <div class="form-group"><label>Título *</label><input class="form-input" id="cu-titulo" placeholder="Nome do curso"></div>
+                <div class="form-group"><label>Categoria *</label><input class="form-input" id="cu-cat" placeholder="Ex: Programação"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Cidade / Modalidade *</label><input class="form-input" id="cu-cidade" placeholder="Ex: Online"></div>
+                <div class="form-group"><label>Plataforma *</label><input class="form-input" id="cu-plat" placeholder="Ex: YouTube, Coursera"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Carga horária (h) *</label><input class="form-input" id="cu-horas" type="number" min="1" placeholder="Ex: 40"></div>
+                <div class="form-group"><label>Link (opcional)</label><input class="form-input" id="cu-link" type="url" placeholder="https://…"></div>
+              </div>
+              <div class="form-group"><label>Descrição *</label><textarea class="form-textarea" id="cu-desc" placeholder="Descreva o curso…"></textarea></div>
+              <button class="btn btn-primary" onclick="cadastrarCurso()">✚ Cadastrar Curso</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-text">IFMG CONECTA — Projeto acadêmico POO · Sistema frontend com classes JavaScript espelhando Python</p>
+    <a href="#" class="footer-link" onclick="navTo('home'); return false;">↑ Topo</a>
+  </div>
+</footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MODALS
+═══════════════════════════════════════ -->
+
+<!-- AUTH MODAL -->
+<div class="modal-backdrop" id="modal-auth" onclick="if(event.target===this)closeModal('auth')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="auth-modal-title">Acessar plataforma</div>
+      <button class="modal-close" onclick="closeModal('auth')">✕</button>
+    </div>
+    <div class="tabs" id="auth-tabs">
+      <button class="tab-btn active" onclick="authTab('login')">Entrar</button>
+      <button class="tab-btn" onclick="authTab('register')">Cadastrar</button>
+    </div>
+
+    <!-- Login -->
+    <div id="auth-panel-login">
+      <div class="form-group"><label>Email</label><input class="form-input" id="l-email" type="email" placeholder="voce@email.com"></div>
+      <div class="form-group"><label>Senha</label><input class="form-input" id="l-senha" type="password" placeholder="••••••"></div>
+      <div id="l-error" class="form-error" style="margin-bottom:.5rem;"></div>
+      <button class="btn btn-primary btn-full" onclick="doLogin()">Entrar</button>
+      <p class="form-hint" style="margin-top:.6rem;text-align:center;">Admin padrão: admin@ifmg.edu.br / admin123</p>
+    </div>
+
+    <!-- Register -->
+    <div id="auth-panel-register" style="display:none;">
+      <div class="form-row">
+        <div class="form-group"><label>Nome *</label><input class="form-input" id="r-nome" placeholder="Seu nome"></div>
+        <div class="form-group"><label>Cidade</label><input class="form-input" id="r-cidade" placeholder="Sua cidade"></div>
+      </div>
+      <div class="form-group"><label>Email *</label><input class="form-input" id="r-email" type="email" placeholder="voce@email.com"></div>
+      <div class="form-group"><label>Senha *</label><input class="form-input" id="r-senha" type="password" placeholder="Mínimo 4 caracteres"></div>
+      <div id="r-error" class="form-error" style="margin-bottom:.5rem;"></div>
+      <button class="btn btn-primary btn-full" onclick="doRegister()">Criar conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT CONTENT MODAL -->
+<div class="modal-backdrop" id="modal-edit" onclick="if(event.target===this)closeModal('edit')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">✏️ Editar conteúdo</div>
+      <button class="modal-close" onclick="closeModal('edit')">✕</button>
+    </div>
+    <div id="edit-form-body"></div>
+    <button class="btn btn-primary btn-full" style="margin-top:.75rem;" onclick="saveEdit()">Salvar alterações</button>
+  </div>
+</div>
+
+<!-- CONTA MODAL -->
+<div class="modal-backdrop" id="modal-conta" onclick="if(event.target===this)closeModal('conta')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">👤 Minha Conta</div>
+      <button class="modal-close" onclick="closeModal('conta')">✕</button>
+    </div>
+    <div id="conta-body"></div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="notifications" id="notifications"></div>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT — CLASSES POO (espelhando Python)
+═══════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════
+   MÓDULO: modelos/usuario.js
+   Espelha: sistema_ifmg/modelos/usuario.py
+════════════════════════════════════════════════════════ */
+
+class Usuario {
+  /** Classe base: encapsulamento com # (campos privados ES2022) */
+  #nome; #email; #senha; #cidade; #favoritos = [];
+
+  constructor(nome, email, senha, cidade) {
+    this.#nome    = nome;
+    this.#email   = email;
+    this.#senha   = senha;
+    this.#cidade  = cidade;
+  }
+
+  // ── Getters / Setters ──────────────────────────────
+  get nome()  { return this.#nome; }
+  set nome(v) {
+    if (!v.trim()) throw new Error('O nome não pode estar vazio.');
+    this.#nome = v.trim();
+  }
+  get email()  { return this.#email; }
+  get cidade() { return this.#cidade; }
+  set cidade(v){ this.#cidade = v.trim(); }
+  get favoritos() { return [...this.#favoritos]; }  // cópia defensiva
+
+  // ── Métodos de negócio ──────────────────────────────
+  verificarSenha(senha)       { return this.#senha === senha; }
+  alterarSenha(atual, nova)   {
+    if (!this.verificarSenha(atual)) return false;
+    this.#senha = nova; return true;
+  }
+  adicionarFavorito(id) {
+    if (this.#favoritos.includes(id)) return false;
+    this.#favoritos.push(id); return true;
+  }
+  removerFavorito(id) {
+    const idx = this.#favoritos.indexOf(id);
+    if (idx === -1) return false;
+    this.#favoritos.splice(idx, 1); return true;
+  }
+  ehFavorito(id) { return this.#favoritos.includes(id); }
+
+  // ── Polimorfismo ──────────────────────────────────
+  tipo()          { return 'Usuário'; }
+  podeGerenciar() { return false; }
+
+  // ── Serialização ─────────────────────────────────
+  toDict() {
+    return { tipo: this.tipo(), nome: this.#nome, email: this.#email,
+             senha: this.#senha, cidade: this.#cidade, favoritos: this.#favoritos };
+  }
+  static fromDict(d) {
+    const obj = new Usuario(d.nome, d.email, d.senha, d.cidade);
+    (d.favoritos || []).forEach(id => obj.adicionarFavorito(id));
+    return obj;
+  }
+  toString() { return `[${this.tipo()}] ${this.#nome} | ${this.#email} | ${this.#cidade}`; }
+}
+
+/* ────────────────────────────────────────────────────────
+   Admin — herança de Usuario (espelha Admin(Usuario) Python)
+──────────────────────────────────────────────────────── */
+class Admin extends Usuario {
+  #nivel; #acoesRealizadas = [];
+
+  constructor(nome, email, senha, cidade, nivel = 1) {
+    super(nome, email, senha, cidade);    // super() → herança
+    this.#nivel = nivel;
+  }
+
+  get nivel()          { return this.#nivel; }
+  get acoesRealizadas(){ return [...this.#acoesRealizadas]; }
+  registrarAcao(acao)  { this.#acoesRealizadas.push(acao); }
+
+  // ── Polimorfismo: sobrescreve métodos da classe pai ──
+  tipo()          { return 'Admin'; }
+  podeGerenciar() { return true; }        // sobrescrita polimórfica
+
+  toDict() {
+    const base = super.toDict();          // herança de serialização
+    return { ...base, nivel: this.#nivel, acoesRealizadas: this.#acoesRealizadas };
+  }
+  static fromDict(d) {
+    const obj = new Admin(d.nome, d.email, d.senha, d.cidade, d.nivel || 1);
+    (d.favoritos || []).forEach(id => obj.adicionarFavorito(id));
+    (d.acoesRealizadas || []).forEach(a => obj.registrarAcao(a));
+    return obj;
+  }
+  toString() { return super.toString() + ` | Nível: ${this.#nivel}`; }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   MÓDULO: modelos/conteudo.js
+   Espelha: sistema_ifmg/modelos/conteudo.py
+════════════════════════════════════════════════════════ */
+
+let _proximoId = 1;
+function _gerarId() { return _proximoId++; }
+
+class Conteudo {
+  /** Atributos "protegidos" (prefixo _): acessíveis por subclasses */
+  constructor(titulo, descricao, categoria, cidade, autorEmail, idConteudo = null) {
+    this._id         = idConteudo ?? _gerarId();
+    this._titulo     = titulo;
+    this._descricao  = descricao;
+    this._categoria  = categoria;
+    this._cidade     = cidade;
+    this._autorEmail = autorEmail;
+    this._criadoEm   = new Date().toLocaleString('pt-BR');
+  }
+
+  // ── Getters / Setters ──────────────────────────────
+  get id()        { return this._id; }
+  get titulo()    { return this._titulo; }
+  set titulo(v)   { if (!v.trim()) throw new Error('Título vazio.'); this._titulo = v.trim(); }
+  get descricao() { return this._descricao; }
+  set descricao(v){ this._descricao = v.trim(); }
+  get categoria() { return this._categoria; }
+  set categoria(v){ this._categoria = v.trim(); }
+  get cidade()    { return this._cidade; }
+  set cidade(v)   { this._cidade = v.trim(); }
+  get autorEmail(){ return this._autorEmail; }
+  get criadoEm()  { return this._criadoEm; }
+
+  // ── Polimorfismo ──────────────────────────────────
+  tipo()   { return 'Conteúdo'; }
+  resumo() { return `[${this.tipo()}] ${this._titulo} | ${this._categoria} | ${this._cidade}`; }
+
+  // ── Serialização ─────────────────────────────────
+  toDict() {
+    return { tipo: this.tipo(), id: this._id, titulo: this._titulo,
+             descricao: this._descricao, categoria: this._categoria,
+             cidade: this._cidade, autorEmail: this._autorEmail, criadoEm: this._criadoEm };
+  }
+  static fromDict(d) {
+    const obj = new Conteudo(d.titulo, d.descricao, d.categoria, d.cidade, d.autorEmail, d.id);
+    obj._criadoEm = d.criadoEm || obj._criadoEm;
+    return obj;
+  }
+  toString() {
+    return `ID:${this._id} [${this.tipo()}] ${this._titulo} | ${this._categoria} | ${this._cidade}`;
+  }
+}
+
+/* ────────────────────────────────────────────────────────
+   Evento — herança de Conteudo (espelha Evento(Conteudo))
+──────────────────────────────────────────────────────── */
+class Evento extends Conteudo {
+  #local; #dataEvento; #gratuito;
+
+  constructor(titulo, descricao, categoria, cidade, autorEmail, local, dataEvento, gratuito = true, idConteudo = null) {
+    super(titulo, descricao, categoria, cidade, autorEmail, idConteudo);
+    this.#local      = local;
+    this.#dataEvento = dataEvento;
+    this.#gratuito   = gratuito;
+  }
+
+  get local()      { return this.#local; }
+  set local(v)     { this.#local = v.trim(); }
+  get dataEvento() { return this.#dataEvento; }
+  set dataEvento(v){ this.#dataEvento = v.trim(); }
+  get gratuito()   { return this.#gratuito; }
+
+  // ── Polimorfismo ──────────────────────────────────
+  tipo()   { return 'Evento'; }
+  resumo() {
+    const g = this.#gratuito ? 'Gratuito' : 'Pago';
+    return `[Evento] ${this._titulo} | ${this._cidade} | ${this.#local} | ${this.#dataEvento} | ${g}`;
+  }
+
+  toDict() {
+    return { ...super.toDict(), local: this.#local, dataEvento: this.#dataEvento, gratuito: this.#gratuito };
+  }
+  static fromDict(d) {
+    const obj = new Evento(d.titulo, d.descricao, d.categoria, d.cidade, d.autorEmail,
+                           d.local || '', d.dataEvento || '', d.gratuito ?? true, d.id);
+    obj._criadoEm = d.criadoEm || obj._criadoEm;
+    return obj;
+  }
+}
+
+/* ────────────────────────────────────────────────────────
+   Curso — herança de Conteudo (espelha Curso(Conteudo))
+──────────────────────────────────────────────────────── */
+class Curso extends Conteudo {
+  #cargaHoraria; #plataforma; #link;
+
+  constructor(titulo, descricao, categoria, cidade, autorEmail, cargaHoraria, plataforma, link = '', idConteudo = null) {
+    super(titulo, descricao, categoria, cidade, autorEmail, idConteudo);
+    this.#cargaHoraria = cargaHoraria;
+    this.#plataforma   = plataforma;
+    this.#link         = link;
+  }
+
+  get cargaHoraria()  { return this.#cargaHoraria; }
+  set cargaHoraria(v) { if (v <= 0) throw new Error('Carga horária inválida.'); this.#cargaHoraria = v; }
+  get plataforma()    { return this.#plataforma; }
+  set plataforma(v)   { this.#plataforma = v.trim(); }
+  get link()          { return this.#link; }
+
+  // ── Polimorfismo ──────────────────────────────────
+  tipo()   { return 'Curso'; }
+  resumo() {
+    return `[Curso] ${this._titulo} | ${this._categoria} | ${this.#cargaHoraria}h | ${this.#plataforma}`;
+  }
+
+  toDict() {
+    return { ...super.toDict(), cargaHoraria: this.#cargaHoraria, plataforma: this.#plataforma, link: this.#link };
+  }
+  static fromDict(d) {
+    const obj = new Curso(d.titulo, d.descricao, d.categoria, d.cidade, d.autorEmail,
+                          d.cargaHoraria || 0, d.plataforma || '', d.link || '', d.id);
+    obj._criadoEm = d.criadoEm || obj._criadoEm;
+    return obj;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   MÓDULO: modelos/favoritos.js
+   Espelha: sistema_ifmg/modelos/favoritos.py
+════════════════════════════════════════════════════════ */
+
+class Favoritos {
+  #emailUsuario; #itens = {};  // { id: dataAdicao }
+
+  constructor(emailUsuario) { this.#emailUsuario = emailUsuario; }
+
+  get emailUsuario() { return this.#emailUsuario; }
+  get total()        { return Object.keys(this.#itens).length; }
+
+  adicionar(idConteudo) {
+    if (this.#itens[idConteudo]) return false;
+    this.#itens[idConteudo] = new Date().toLocaleString('pt-BR');
+    return true;
+  }
+  remover(idConteudo) {
+    if (!this.#itens[idConteudo]) return false;
+    delete this.#itens[idConteudo]; return true;
+  }
+  contem(idConteudo) { return !!this.#itens[idConteudo]; }
+  listarIds()        { return Object.keys(this.#itens).map(Number); }
+  dataAdicao(id)     { return this.#itens[id] || ''; }
+  limpar()           { this.#itens = {}; }
+
+  toDict() { return { emailUsuario: this.#emailUsuario, itens: { ...this.#itens } }; }
+  static fromDict(d) {
+    const obj = new Favoritos(d.emailUsuario);
+    Object.entries(d.itens || {}).forEach(([k, v]) => { obj.#itens[Number(k)] = v; });
+    return obj;
+  }
+  toString() {
+    if (!this.total) return `Favoritos de ${this.#emailUsuario}: nenhum item.`;
+    return `Favoritos de ${this.#emailUsuario} (${this.total} itens): [${this.listarIds().join(', ')}]`;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   MÓDULO: servicos/notificacao.js
+   Espelha: sistema_ifmg/servicos/notificacao.py
+════════════════════════════════════════════════════════ */
+
+class ServicoNotificacao {
+  #container;
+  constructor() { this.#container = document.getElementById('notifications'); }
+
+  _show(msg, type) {
+    const el = document.createElement('div');
+    el.className = `notif notif-${type}`;
+    el.textContent = msg;
+    this.#container.appendChild(el);
+    setTimeout(() => el.remove(), 3500);
+  }
+  sucesso(msg)  { this._show('✅ ' + msg, 'success'); }
+  erro(msg)     { this._show('❌ ' + msg, 'error'); }
+  info(msg)     { this._show('ℹ️ ' + msg, 'info'); }
+  aviso(msg)    { this._show('⚠️ ' + msg, 'warning'); }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   MÓDULO: repositorios/repositorios.js
+   Espelha: sistema_ifmg/repositorios/repositorios.py
+   (usa localStorage ao invés de arquivo JSON)
+════════════════════════════════════════════════════════ */
+
+class RepositorioUsuario {
+  #dados = {};  // { email: Usuario }
+
+  constructor() { this._carregar(); }
+
+  _carregar() {
+    try {
+      const raw = localStorage.getItem('ifmg_usuarios');
+      if (!raw) return;
+      const json = JSON.parse(raw);
+      for (const [email, d] of Object.entries(json)) {
+        this.#dados[email] = d.tipo === 'Admin' ? Admin.fromDict(d) : Usuario.fromDict(d);
+      }
+    } catch {}
+  }
+  _salvar() {
+    const json = {};
+    for (const [email, u] of Object.entries(this.#dados)) json[email] = u.toDict();
+    localStorage.setItem('ifmg_usuarios', JSON.stringify(json));
+  }
+
+  adicionar(usuario)  {
+    if (this.#dados[usuario.email]) return false;
+    this.#dados[usuario.email] = usuario; this._salvar(); return true;
+  }
+  buscarPorEmail(email){ return this.#dados[email] || null; }
+  listarTodos()        { return Object.values(this.#dados); }
+  atualizar(usuario)   {
+    if (!this.#dados[usuario.email]) return false;
+    this.#dados[usuario.email] = usuario; this._salvar(); return true;
+  }
+  remover(email)       {
+    if (!this.#dados[email]) return false;
+    delete this.#dados[email]; this._salvar(); return true;
+  }
+  total() { return Object.keys(this.#dados).length; }
+}
+
+class RepositorioConteudo {
+  #dados = {};  // { id: Conteudo }
+
+  constructor() { this._carregar(); }
+
+  _carregar() {
+    try {
+      const raw = localStorage.getItem('ifmg_conteudos');
+      if (!raw) return;
+      const json = JSON.parse(raw);
+      let maxId = 0;
+      for (const [id, d] of Object.entries(json)) {
+        let obj;
+        if (d.tipo === 'Evento')      obj = Evento.fromDict(d);
+        else if (d.tipo === 'Curso')  obj = Curso.fromDict(d);
+        else                          obj = Conteudo.fromDict(d);
+        this.#dados[obj.id] = obj;
+        if (obj.id > maxId) maxId = obj.id;
+      }
+      if (maxId >= _proximoId) _proximoId = maxId + 1;
+    } catch {}
+  }
+  _salvar() {
+    const json = {};
+    for (const [id, c] of Object.entries(this.#dados)) json[id] = c.toDict();
+    localStorage.setItem('ifmg_conteudos', JSON.stringify(json));
+  }
+
+  adicionar(conteudo) { this.#dados[conteudo.id] = conteudo; this._salvar(); return true; }
+  buscarPorId(id)     { return this.#dados[id] || null; }
+  listarTodos()       { return Object.values(this.#dados); }
+
+  buscarInteligente(termo = '', categoria = '', cidade = '', tipo = '') {
+    let res = this.listarTodos();
+    if (termo)     { const t = termo.toLowerCase(); res = res.filter(c => c.titulo.toLowerCase().includes(t) || c.descricao.toLowerCase().includes(t)); }
+    if (categoria) { const k = categoria.toLowerCase(); res = res.filter(c => c.categoria.toLowerCase().includes(k)); }
+    if (cidade)    { const k = cidade.toLowerCase(); res = res.filter(c => c.cidade.toLowerCase().includes(k)); }
+    if (tipo)      { res = res.filter(c => c.tipo() === tipo); }
+    return res;
+  }
+
+  atualizar(conteudo) {
+    if (!this.#dados[conteudo.id]) return false;
+    this.#dados[conteudo.id] = conteudo; this._salvar(); return true;
+  }
+  remover(id) {
+    if (!this.#dados[id]) return false;
+    delete this.#dados[id]; this._salvar(); return true;
+  }
+  total() { return Object.keys(this.#dados).length; }
+}
+
+class RepositorioFavoritos {
+  #dados = {};  // { email: Favoritos }
+
+  constructor() { this._carregar(); }
+
+  _carregar() {
+    try {
+      const raw = localStorage.getItem('ifmg_favoritos');
+      if (!raw) return;
+      const json = JSON.parse(raw);
+      for (const [email, d] of Object.entries(json)) this.#dados[email] = Favoritos.fromDict(d);
+    } catch {}
+  }
+  _salvar() {
+    const json = {};
+    for (const [e, f] of Object.entries(this.#dados)) json[e] = f.toDict();
+    localStorage.setItem('ifmg_favoritos', JSON.stringify(json));
+  }
+
+  obter(email) {
+    if (!this.#dados[email]) this.#dados[email] = new Favoritos(email);
+    return this.#dados[email];
+  }
+  salvar(favs)        { this.#dados[favs.emailUsuario] = favs; this._salvar(); }
+  removerUsuario(email){ delete this.#dados[email]; this._salvar(); }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   MÓDULO: servicos/sistema.js
+   Espelha: sistema_ifmg/servicos/sistema.py  (SistemaConecta)
+════════════════════════════════════════════════════════ */
+
+class SistemaConecta {
+  constructor() {
+    this._repoUsuario   = new RepositorioUsuario();
+    this._repoConteudo  = new RepositorioConteudo();
+    this._repoFavoritos = new RepositorioFavoritos();
+    this._notif         = new ServicoNotificacao();
+    this._usuarioLogado = null;
+
+    this._criarAdminPadrao();
+    this._carregarConteudosPadrao();
+  }
+
+  // ── Inicialização ──────────────────────────────────
+  _criarAdminPadrao() {
+    if (this._repoUsuario.total() === 0) {
+      const admin = new Admin('Administrador', 'admin@ifmg.edu.br', 'admin123', 'Belo Horizonte', 2);
+      this._repoUsuario.adicionar(admin);
+    }
+  }
+  _carregarConteudosPadrao() {
+    if (this._repoConteudo.total() > 0) return;
+    // Dados de demo espelhando demo.py
+    const admin = this._repoUsuario.buscarPorEmail('admin@ifmg.edu.br');
+    const ae = admin.email;
+
+    const e1 = new Evento('Feira de Tecnologia IFMG 2025',
+      'Exposição de projetos de alunos e parceiros com foco em inovação tecnológica.',
+      'Tecnologia', 'Belo Horizonte', ae,
+      'Campus IFMG — Auditório Principal', '15/08/2025 09:00', true);
+    const e2 = new Evento('Workshop de Design Gráfico',
+      'Oficina prática de Figma e identidade visual para iniciantes e intermediários.',
+      'Design', 'São Paulo', ae,
+      'Centro Cultural SP', '22/08/2025 14:00', true);
+    const e3 = new Evento('Semana Acadêmica IFMG',
+      'Palestras, minicursos e networking com profissionais do mercado.',
+      'Acadêmico', 'Belo Horizonte', ae,
+      'Campus IFMG — Bloco C', '10/09/2025 08:00', true);
+
+    const c1 = new Curso('Python para Iniciantes',
+      'Introdução à programação com Python, do zero ao intermediário. Ideal para estudantes.',
+      'Programação', 'Online', ae, 40, 'YouTube / IFMG',
+      'https://youtube.com/ifmg-python');
+    const c2 = new Curso('Gestão de Projetos com Scrum',
+      'Fundamentos ágeis aplicados à gestão de equipes e projetos de software.',
+      'Gestão', 'Online', ae, 20, 'Coursera',
+      'https://coursera.org/scrum');
+    const c3 = new Curso('Fotografia Básica',
+      'Aprenda composição, luz e edição com câmera ou celular. Aulas presenciais.',
+      'Arte', 'Belo Horizonte', ae, 8, 'Centro Cultural IFMG');
+    const c4 = new Curso('Introdução à Inteligência Artificial',
+      'Conceitos fundamentais de IA e Machine Learning com exemplos práticos.',
+      'Tecnologia', 'Online', ae, 60, 'edX',
+      'https://edx.org/ia-intro');
+
+    [e1, e2, e3, c1, c2, c3, c4].forEach(c => this._repoConteudo.adicionar(c));
+    admin.registrarAcao('Conteúdos padrão carregados');
+    this._repoUsuario.atualizar(admin);
+  }
+
+  // ── Autenticação ───────────────────────────────────
+  get usuarioLogado() { return this._usuarioLogado; }
+  get estaLogado()    { return this._usuarioLogado !== null; }
+  get ehAdmin()       { return this._usuarioLogado?.podeGerenciar() === true; }
+
+  cadastrarUsuario(nome, email, senha, cidade) {
+    if (!nome || !email || !senha) { this._notif.erro('Nome, email e senha são obrigatórios.'); return false; }
+    if (senha.length < 4)          { this._notif.erro('Senha deve ter ao menos 4 caracteres.'); return false; }
+    if (this._repoUsuario.buscarPorEmail(email)) { this._notif.erro(`Email '${email}' já está em uso.`); return false; }
+    const u = new Usuario(nome, email, senha, cidade || '');
+    this._repoUsuario.adicionar(u);
+    this._notif.sucesso(`Usuário '${nome}' cadastrado com sucesso!`);
+    return true;
+  }
+
+  login(email, senha) {
+    const u = this._repoUsuario.buscarPorEmail(email);
+    if (!u)               { this._notif.erro('Email não encontrado.'); return false; }
+    if (!u.verificarSenha(senha)) { this._notif.erro('Senha incorreta.'); return false; }
+    this._usuarioLogado = u;
+    this._notif.sucesso(`Bem-vindo(a), ${u.nome}! [${u.tipo()}]`);
+    return true;
+  }
+
+  logout() {
+    if (this._usuarioLogado) { this._notif.info(`Até logo, ${this._usuarioLogado.nome}!`); }
+    this._usuarioLogado = null;
+  }
+
+  // ── Gerenciamento de conta ─────────────────────────
+  alterarSenha(atual, nova) {
+    if (!this._usuarioLogado)        { this._notif.erro('Nenhum usuário logado.'); return false; }
+    if (!this._usuarioLogado.alterarSenha(atual, nova)) { this._notif.erro('Senha atual incorreta.'); return false; }
+    this._repoUsuario.atualizar(this._usuarioLogado);
+    this._notif.sucesso('Senha alterada com sucesso!'); return true;
+  }
+  removerConta(senha) {
+    if (!this._usuarioLogado)                  { this._notif.erro('Nenhum usuário logado.'); return false; }
+    if (!this._usuarioLogado.verificarSenha(senha)) { this._notif.erro('Senha incorreta.'); return false; }
+    const email = this._usuarioLogado.email;
+    this._repoUsuario.remover(email);
+    this._repoFavoritos.removerUsuario(email);
+    this._usuarioLogado = null;
+    this._notif.sucesso('Conta removida.'); return true;
+  }
+
+  // ── CRUD Conteúdos (Admin) ─────────────────────────
+  _verificarAdmin() {
+    if (!this._usuarioLogado)              { this._notif.erro('Você precisa estar logado.'); return false; }
+    if (!this._usuarioLogado.podeGerenciar()) { this._notif.erro('Permissão negada. Apenas admins.'); return false; }
+    return true;
+  }
+
+  cadastrarEvento(titulo, descricao, categoria, cidade, local, dataEvento, gratuito = true) {
+    if (!this._verificarAdmin()) return null;
+    const ev = new Evento(titulo, descricao, categoria, cidade, this._usuarioLogado.email, local, dataEvento, gratuito);
+    this._repoConteudo.adicionar(ev);
+    if (this._usuarioLogado instanceof Admin) this._usuarioLogado.registrarAcao(`Cadastrou evento '${titulo}' (ID ${ev.id})`);
+    this._repoUsuario.atualizar(this._usuarioLogado);
+    this._notif.sucesso(`Evento '${titulo}' cadastrado!`);
+    return ev;
+  }
+
+  cadastrarCurso(titulo, descricao, categoria, cidade, cargaHoraria, plataforma, link = '') {
+    if (!this._verificarAdmin()) return null;
+    const cu = new Curso(titulo, descricao, categoria, cidade, this._usuarioLogado.email, cargaHoraria, plataforma, link);
+    this._repoConteudo.adicionar(cu);
+    if (this._usuarioLogado instanceof Admin) this._usuarioLogado.registrarAcao(`Cadastrou curso '${titulo}' (ID ${cu.id})`);
+    this._repoUsuario.atualizar(this._usuarioLogado);
+    this._notif.sucesso(`Curso '${titulo}' cadastrado!`);
+    return cu;
+  }
+
+  editarConteudo(id, campos) {
+    if (!this._verificarAdmin()) return false;
+    const c = this._repoConteudo.buscarPorId(id);
+    if (!c) { this._notif.erro(`Conteúdo ID ${id} não encontrado.`); return false; }
+    for (const [k, v] of Object.entries(campos)) { try { c[k] = v; } catch {} }
+    this._repoConteudo.atualizar(c);
+    if (this._usuarioLogado instanceof Admin) this._usuarioLogado.registrarAcao(`Editou conteúdo ID ${id}`);
+    this._repoUsuario.atualizar(this._usuarioLogado);
+    this._notif.sucesso(`Conteúdo ID ${id} atualizado.`);
+    return true;
+  }
+
+  excluirConteudo(id) {
+    if (!this._verificarAdmin()) return false;
+    if (!this._repoConteudo.buscarPorId(id)) { this._notif.erro(`Conteúdo ID ${id} não encontrado.`); return false; }
+    this._repoConteudo.remover(id);
+    if (this._usuarioLogado instanceof Admin) this._usuarioLogado.registrarAcao(`Excluiu conteúdo ID ${id}`);
+    this._repoUsuario.atualizar(this._usuarioLogado);
+    this._notif.sucesso(`Conteúdo ID ${id} excluído.`);
+    return true;
+  }
+
+  // ── Consulta de Conteúdos ──────────────────────────
+  listarConteudos()   { return this._repoConteudo.listarTodos(); }
+  buscarConteudo(termo = '', categoria = '', cidade = '', tipo = '') {
+    const res = this._repoConteudo.buscarInteligente(termo, categoria, cidade, tipo);
+    if (!res.length) this._notif.aviso('Nenhum resultado encontrado.');
+    return res;
+  }
+  verConteudo(id) { return this._repoConteudo.buscarPorId(id); }
+
+  // ── Favoritos ──────────────────────────────────────
+  favoritar(idConteudo) {
+    if (!this._usuarioLogado) { this._notif.erro('Faça login para usar favoritos.'); return false; }
+    const c = this._repoConteudo.buscarPorId(idConteudo);
+    if (!c) { this._notif.erro(`Conteúdo ID ${idConteudo} não encontrado.`); return false; }
+    const favs = this._repoFavoritos.obter(this._usuarioLogado.email);
+    if (favs.contem(idConteudo)) {
+      favs.remover(idConteudo);
+      this._notif.info(`'${c.titulo}' removido dos favoritos.`);
+    } else {
+      favs.adicionar(idConteudo);
+      this._notif.sucesso(`'${c.titulo}' adicionado aos favoritos! ⭐`);
+    }
+    this._repoFavoritos.salvar(favs);
+    return true;
+  }
+
+  meusFavoritos() {
+    if (!this._usuarioLogado) { this._notif.erro('Faça login para ver favoritos.'); return []; }
+    const favs = this._repoFavoritos.obter(this._usuarioLogado.email);
+    return favs.listarIds().map(id => this._repoConteudo.buscarPorId(id)).filter(Boolean);
+  }
+
+  ehFavoritado(idConteudo) {
+    if (!this._usuarioLogado) return false;
+    return this._repoFavoritos.obter(this._usuarioLogado.email).contem(idConteudo);
+  }
+
+  // ── Admin: Usuários ────────────────────────────────
+  listarUsuarios() {
+    if (!this._verificarAdmin()) return [];
+    return this._repoUsuario.listarTodos();
+  }
+
+  getFavCount(email) {
+    const f = this._repoFavoritos.obter(email);
+    return f.total;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   CAMADA DE UI / CONTROLE DE VIEWS
+════════════════════════════════════════════════════════ */
+
+const sistema = new SistemaConecta();
+let currentView = 'home';
+let editingId = null;
+
+/* ── Navigation ── */
+function navTo(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view)?.classList.add('active');
+  document.querySelectorAll('[data-view]').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  currentView = view;
+  if (view === 'home')    renderHome();
+  if (view === 'explore') renderExplore();
+  if (view === 'favs')    renderFavs();
+  if (view === 'admin')   renderAdmin();
+  window.scrollTo(0, 0);
+}
+
+/* ── Auth UI ── */
+function updateAuthUI() {
+  const u = sistema.usuarioLogado;
+  const area = document.getElementById('auth-area');
+  if (u) {
+    area.innerHTML = `
+      <div class="user-pill">
+        <div class="avatar">${u.nome[0].toUpperCase()}</div>
+        <span>${u.nome.split(' ')[0]}</span>
+        ${u.podeGerenciar() ? '<span class="admin-badge">Admin</span>' : ''}
+        <button class="btn btn-sm btn-ghost" onclick="openModal('conta')" style="padding:.2rem .6rem;">⚙</button>
+        <button class="btn btn-sm btn-ghost" onclick="doLogout()" style="padding:.2rem .6rem;">Sair</button>
+      </div>`;
+    document.getElementById('nav-favs').hidden = false;
+    document.getElementById('nav-admin').hidden = !u.podeGerenciar();
+    document.getElementById('btn-hero-auth').hidden = true;
+  } else {
+    area.innerHTML = `<button class="btn btn-ghost btn-sm" onclick="openModal('auth')">👤 Entrar</button>`;
+    document.getElementById('nav-favs').hidden = true;
+    document.getElementById('nav-admin').hidden = true;
+    document.getElementById('btn-hero-auth').hidden = false;
+  }
+}
+
+/* ── Modals ── */
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  if (id === 'conta') renderContaModal();
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach(m => m.classList.remove('open')); });
+
+/* ── Auth tabs ── */
+function authTab(tab) {
+  document.getElementById('auth-panel-login').style.display    = tab === 'login'    ? '' : 'none';
+  document.getElementById('auth-panel-register').style.display = tab === 'register' ? '' : 'none';
+  document.querySelectorAll('#auth-tabs .tab-btn').forEach((b, i) => b.classList.toggle('active', (i===0) === (tab==='login')));
+  document.getElementById('l-error').textContent = '';
+  document.getElementById('r-error').textContent = '';
+}
+
+function doLogin() {
+  const email = document.getElementById('l-email').value.trim();
+  const senha  = document.getElementById('l-senha').value;
+  const ok = sistema.login(email, senha);
+  if (!ok) { document.getElementById('l-error').textContent = 'Email ou senha inválidos.'; return; }
+  closeModal('auth');
+  updateAuthUI();
+  renderHome();
+}
+function doRegister() {
+  const nome   = document.getElementById('r-nome').value.trim();
+  const email  = document.getElementById('r-email').value.trim();
+  const senha  = document.getElementById('r-senha').value;
+  const cidade = document.getElementById('r-cidade').value.trim();
+  const ok = sistema.cadastrarUsuario(nome, email, senha, cidade);
+  if (!ok) { document.getElementById('r-error').textContent = 'Verifique os dados e tente novamente.'; return; }
+  sistema.login(email, senha);
+  closeModal('auth');
+  updateAuthUI();
+}
+function doLogout() {
+  sistema.logout();
+  updateAuthUI();
+  if (currentView === 'favs' || currentView === 'admin') navTo('home');
+  else renderHome();
+}
+
+/* ── Conta modal ── */
+function renderContaModal() {
+  const u = sistema.usuarioLogado;
+  if (!u) return;
+  document.getElementById('conta-body').innerHTML = `
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:0.8rem;color:var(--slate-400);margin-bottom:.25rem;">Tipo de conta</div>
+      <div style="font-weight:600;">${u.tipo()} ${u.podeGerenciar() ? '🛡' : ''}</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:0.8rem;color:var(--slate-400);margin-bottom:.25rem;">Nome</div>
+      <div style="font-weight:600;">${u.nome}</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:0.8rem;color:var(--slate-400);margin-bottom:.25rem;">Email</div>
+      <div style="font-weight:600;">${u.email}</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:0.8rem;color:var(--slate-400);margin-bottom:.25rem;">Cidade</div>
+      <div style="font-weight:600;">${u.cidade || '—'}</div>
+    </div>
+    <hr class="divider">
+    <div style="font-size:0.85rem;font-weight:600;color:var(--slate-400);margin-bottom:.75rem;">Alterar senha</div>
+    <div class="form-group"><label>Senha atual</label><input class="form-input" id="cp-atual" type="password" placeholder="••••••"></div>
+    <div class="form-group"><label>Nova senha</label><input class="form-input" id="cp-nova" type="password" placeholder="••••••"></div>
+    <button class="btn btn-ghost btn-full" onclick="doAlterarSenha()" style="margin-bottom:.75rem;">🔐 Alterar senha</button>
+    ${!u.podeGerenciar() ? `
+    <hr class="divider">
+    <div class="form-group"><label>Confirmar com senha para excluir conta</label><input class="form-input" id="cp-exc" type="password" placeholder="••••••"></div>
+    <button class="btn btn-danger btn-full" onclick="doExcluirConta()">🗑 Excluir minha conta</button>` : ''}
+  `;
+}
+function doAlterarSenha() {
+  const atual = document.getElementById('cp-atual')?.value;
+  const nova  = document.getElementById('cp-nova')?.value;
+  if (sistema.alterarSenha(atual, nova)) closeModal('conta');
+}
+function doExcluirConta() {
+  const senha = document.getElementById('cp-exc')?.value;
+  if (sistema.removerConta(senha)) { closeModal('conta'); updateAuthUI(); navTo('home'); }
+}
+
+/* ════════════════
+   CARD BUILDER
+   Demonstra polimorfismo: cada tipo de Conteudo renderiza diferente
+════════════════ */
+function buildCard(c, showAdminActions = false) {
+  const isEv  = c instanceof Evento;
+  const isCu  = c instanceof Curso;
+  const favd  = sistema.ehFavoritado(c.id);
+
+  const typeBadge = isEv
+    ? `<span class="badge badge-evento">📅 Evento</span>`
+    : `<span class="badge badge-curso">📚 Curso</span>`;
+
+  const extraBadge = isEv
+    ? (c.gratuito ? `<span class="badge badge-free">Gratuito</span>` : `<span class="badge badge-paid">Pago</span>`)
+    : `<span class="badge badge-free">${c.cargaHoraria}h</span>`;
+
+  const meta = isEv
+    ? `<span>📍 ${c.local}</span><span>🕐 ${c.dataEvento}</span>`
+    : `<span>🖥 ${c.plataforma}</span>`;
+
+  const link = isCu && c.link
+    ? `<a class="btn btn-ghost btn-sm" href="${c.link}" target="_blank" rel="noopener">🔗 Acessar</a>`
+    : '';
+
+  const adminBtns = showAdminActions ? `
+    <button class="btn btn-ghost btn-sm" onclick="openEditModal(${c.id})">✏️</button>
+    <button class="btn btn-danger btn-sm" onclick="doExcluirConteudo(${c.id})">🗑</button>
+  ` : '';
+
+  const favBtn = sistema.estaLogado ? `
+    <button class="card-fav ${favd ? 'active' : ''}" onclick="doFavoritar(${c.id})" title="${favd ? 'Remover favorito' : 'Favoritar'}">
+      ${favd ? '⭐' : '☆'}
+    </button>` : '';
+
+  return `
+    <div class="card" id="card-${c.id}">
+      <div class="card-header">
+        <div class="card-badges">${typeBadge}${extraBadge}</div>
+        ${favBtn}
+      </div>
+      <div class="card-title">${esc(c.titulo)}</div>
+      <div class="card-meta">
+        <span>🏷 ${esc(c.categoria)}</span>
+        <span>🌆 ${esc(c.cidade)}</span>
+        ${meta}
+      </div>
+      <div class="card-desc">${esc(c.descricao)}</div>
+      <div class="card-footer">
+        <div class="card-actions">${link}${adminBtns}</div>
+        <div class="card-date">${c.criadoEm}</div>
+      </div>
+    </div>`;
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ── HOME ── */
+function renderHome() {
+  const todos = sistema.listarConteudos();
+  // Stats — demonstra polimorfismo: tipo() retorna 'Evento' ou 'Curso'
+  document.getElementById('stat-conteudos').textContent = todos.length;
+  document.getElementById('stat-eventos').textContent   = todos.filter(c => c.tipo() === 'Evento').length;
+  document.getElementById('stat-cursos').textContent    = todos.filter(c => c.tipo() === 'Curso').length;
+  document.getElementById('stat-usuarios').textContent  = sistema.listarTodos ? 0 : 0;
+  try { document.getElementById('stat-usuarios').textContent = sistema._repoUsuario.total(); } catch {}
+
+  const recent = todos.slice(-6).reverse();
+  const container = document.getElementById('home-cards');
+  container.innerHTML = recent.length
+    ? recent.map(c => buildCard(c)).join('')
+    : `<div class="empty-state"><div class="empty-icon">📭</div><p>Nenhum conteúdo ainda.</p></div>`;
+}
+
+/* ── EXPLORE ── */
+function renderExplore() {
+  const termo    = document.getElementById('search-input')?.value || '';
+  const tipo     = document.getElementById('filter-tipo')?.value || '';
+  const cat      = document.getElementById('filter-cat')?.value || '';
+  const cidade   = document.getElementById('filter-cidade')?.value || '';
+
+  // Preenche filtros dinamicamente
+  populateFilters();
+
+  const res = sistema.buscarConteudo(termo, cat, cidade, tipo);
+  const info = document.getElementById('results-info');
+  info.textContent = `${res.length} resultado(s) encontrado(s)`;
+
+  const container = document.getElementById('explore-cards');
+  container.innerHTML = res.length
+    ? res.map(c => buildCard(c)).join('')
+    : `<div class="empty-state"><div class="empty-icon">🔍</div><p>Nenhum resultado para essa busca.</p></div>`;
+}
+
+function populateFilters() {
+  const todos = sistema.listarConteudos();
+  const cats = [...new Set(todos.map(c => c.categoria))].sort();
+  const cids = [...new Set(todos.map(c => c.cidade))].sort();
+
+  const fCat = document.getElementById('filter-cat');
+  const fCid = document.getElementById('filter-cidade');
+  const curCat = fCat.value, curCid = fCid.value;
+
+  fCat.innerHTML = `<option value="">Todas as categorias</option>` + cats.map(c => `<option ${c===curCat?'selected':''}>${c}</option>`).join('');
+  fCid.innerHTML = `<option value="">Todas as cidades</option>` + cids.map(c => `<option ${c===curCid?'selected':''}>${c}</option>`).join('');
+}
+
+/* ── FAVORITOS ── */
+function renderFavs() {
+  if (!sistema.estaLogado) { navTo('home'); openModal('auth'); return; }
+  const favs = sistema.meusFavoritos();
+  document.getElementById('favs-cards').innerHTML = favs.length
+    ? favs.map(c => buildCard(c)).join('')
+    : `<div class="empty-state"><div class="empty-icon">⭐</div><p>Você ainda não favoritou nenhum conteúdo.</p></div>`;
+}
+
+function doFavoritar(id) {
+  if (!sistema.estaLogado) { openModal('auth'); return; }
+  sistema.favoritar(id);
+  // Atualiza o card inline
+  const btn = document.querySelector(`#card-${id} .card-fav`);
+  if (btn) {
+    const favd = sistema.ehFavoritado(id);
+    btn.classList.toggle('active', favd);
+    btn.textContent = favd ? '⭐' : '☆';
+    btn.title = favd ? 'Remover favorito' : 'Favoritar';
+  }
+  if (currentView === 'favs') renderFavs();
+}
+
+/* ── ADMIN ── */
+let _adminTab = 'conteudos';
+
+function adminTab(tab) {
+  if (!sistema.ehAdmin) return;
+  _adminTab = tab;
+  ['conteudos','usuarios','novo'].forEach(t => {
+    document.getElementById('admin-tab-' + t).style.display = t === tab ? '' : 'none';
+  });
+  document.querySelectorAll('#view-admin .tabs .tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['conteudos','usuarios','novo'][i] === tab);
+  });
+  if (tab === 'conteudos') renderAdminCards();
+  if (tab === 'usuarios')  renderAdminUsers();
+}
+
+function renderAdmin() {
+  if (!sistema.ehAdmin) { navTo('home'); return; }
+  adminTab('conteudos');
+}
+
+function renderAdminCards() {
+  const todos = sistema.listarConteudos();
+  document.getElementById('admin-cards').innerHTML = todos.length
+    ? todos.map(c => buildCard(c, true)).join('')
+    : `<div class="empty-state"><div class="empty-icon">📭</div><p>Nenhum conteúdo cadastrado.</p></div>`;
+}
+
+function renderAdminUsers() {
+  const usuarios = sistema.listarUsuarios();
+  const tbody = document.querySelector('#admin-users-table tbody');
+  tbody.innerHTML = usuarios.map(u => `
+    <tr>
+      <td>${esc(u.nome)}</td>
+      <td>${esc(u.email)}</td>
+      <td><span class="badge ${u.podeGerenciar() ? 'badge-paid' : 'badge-free'}">${u.tipo()}</span></td>
+      <td>${esc(u.cidade)}</td>
+      <td>${sistema.getFavCount(u.email)}</td>
+    </tr>`).join('');
+}
+
+/* ── CADASTRAR EVENTO ── */
+function newContentTab(t) {
+  document.getElementById('nc-evento').style.display = t === 'evento' ? '' : 'none';
+  document.getElementById('nc-curso').style.display  = t === 'curso'  ? '' : 'none';
+  document.getElementById('nc-tab-evento').classList.toggle('active', t === 'evento');
+  document.getElementById('nc-tab-curso').classList.toggle('active',  t === 'curso');
+}
+
+function cadastrarEvento() {
+  const titulo   = document.getElementById('ev-titulo').value.trim();
+  const cat      = document.getElementById('ev-cat').value.trim();
+  const cidade   = document.getElementById('ev-cidade').value.trim();
+  const local    = document.getElementById('ev-local').value.trim();
+  const dataRaw  = document.getElementById('ev-data').value;
+  const gratuito = document.getElementById('ev-gratuito').value === 'true';
+  const desc     = document.getElementById('ev-desc').value.trim();
+
+  if (!titulo || !cat || !cidade || !local || !dataRaw || !desc) {
+    sistema._notif.erro('Preencha todos os campos obrigatórios.'); return;
+  }
+  // Formata data
+  const dt = new Date(dataRaw);
+  const dataFormatada = `${dt.getDate().toString().padStart(2,'0')}/${(dt.getMonth()+1).toString().padStart(2,'0')}/${dt.getFullYear()} ${dt.getHours().toString().padStart(2,'0')}:${dt.getMinutes().toString().padStart(2,'0')}`;
+
+  const ok = sistema.cadastrarEvento(titulo, desc, cat, cidade, local, dataFormatada, gratuito);
+  if (ok) {
+    ['ev-titulo','ev-cat','ev-cidade','ev-local','ev-desc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('ev-data').value = '';
+    adminTab('conteudos');
+  }
+}
+
+function cadastrarCurso() {
+  const titulo = document.getElementById('cu-titulo').value.trim();
+  const cat    = document.getElementById('cu-cat').value.trim();
+  const cidade = document.getElementById('cu-cidade').value.trim();
+  const plat   = document.getElementById('cu-plat').value.trim();
+  const horas  = parseInt(document.getElementById('cu-horas').value) || 0;
+  const link   = document.getElementById('cu-link').value.trim();
+  const desc   = document.getElementById('cu-desc').value.trim();
+
+  if (!titulo || !cat || !cidade || !plat || horas <= 0 || !desc) {
+    sistema._notif.erro('Preencha todos os campos obrigatórios.'); return;
+  }
+  const ok = sistema.cadastrarCurso(titulo, desc, cat, cidade, horas, plat, link);
+  if (ok) {
+    ['cu-titulo','cu-cat','cu-cidade','cu-plat','cu-link','cu-desc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('cu-horas').value = '';
+    adminTab('conteudos');
+  }
+}
+
+/* ── EDITAR CONTEÚDO ── */
+function openEditModal(id) {
+  editingId = id;
+  const c = sistema.verConteudo(id);
+  if (!c) return;
+  const isEv = c instanceof Evento;
+  const isCu = c instanceof Curso;
+
+  document.getElementById('edit-form-body').innerHTML = `
+    <div class="form-group"><label>Título</label><input class="form-input" id="ed-titulo" value="${esc(c.titulo)}"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Categoria</label><input class="form-input" id="ed-cat" value="${esc(c.categoria)}"></div>
+      <div class="form-group"><label>Cidade</label><input class="form-input" id="ed-cidade" value="${esc(c.cidade)}"></div>
+    </div>
+    <div class="form-group"><label>Descrição</label><textarea class="form-textarea" id="ed-desc">${esc(c.descricao)}</textarea></div>
+    ${isEv ? `
+      <div class="form-row">
+        <div class="form-group"><label>Local</label><input class="form-input" id="ed-local" value="${esc(c.local)}"></div>
+        <div class="form-group"><label>Data</label><input class="form-input" id="ed-data" value="${esc(c.dataEvento)}"></div>
+      </div>` : ''}
+    ${isCu ? `
+      <div class="form-row">
+        <div class="form-group"><label>Plataforma</label><input class="form-input" id="ed-plat" value="${esc(c.plataforma)}"></div>
+        <div class="form-group"><label>Carga (h)</label><input class="form-input" id="ed-horas" type="number" value="${c.cargaHoraria}"></div>
+      </div>
+      <div class="form-group"><label>Link</label><input class="form-input" id="ed-link" value="${esc(c.link)}"></div>` : ''}
+  `;
+  openModal('edit');
+}
+
+function saveEdit() {
+  const c = sistema.verConteudo(editingId);
+  if (!c) return;
+  const campos = {
+    titulo:    document.getElementById('ed-titulo')?.value.trim(),
+    categoria: document.getElementById('ed-cat')?.value.trim(),
+    cidade:    document.getElementById('ed-cidade')?.value.trim(),
+    descricao: document.getElementById('ed-desc')?.value.trim(),
+  };
+  if (c instanceof Evento) {
+    campos.local      = document.getElementById('ed-local')?.value.trim();
+    campos.dataEvento = document.getElementById('ed-data')?.value.trim();
+  }
+  if (c instanceof Curso) {
+    campos.plataforma   = document.getElementById('ed-plat')?.value.trim();
+    campos.cargaHoraria = parseInt(document.getElementById('ed-horas')?.value) || c.cargaHoraria;
+    campos.link         = document.getElementById('ed-link')?.value.trim();
+  }
+  if (sistema.editarConteudo(editingId, campos)) {
+    closeModal('edit');
+    renderAdminCards();
+    if (currentView === 'explore') renderExplore();
+    if (currentView === 'home')    renderHome();
+  }
+}
+
+function doExcluirConteudo(id) {
+  if (!confirm(`Excluir conteúdo ID ${id}? Esta ação não pode ser desfeita.`)) return;
+  if (sistema.excluirConteudo(id)) {
+    renderAdminCards();
+    if (currentView === 'explore') renderExplore();
+    if (currentView === 'home')    renderHome();
+  }
+}
+
+/* ── INIT ── */
+(function init() {
+  updateAuthUI();
+  renderHome();
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault(); navTo('explore');
+      setTimeout(() => document.getElementById('search-input')?.focus(), 50);
+    }
+  });
+})();
+</script>
+</body>
+</html>

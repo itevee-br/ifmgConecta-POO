@@ -1,0 +1,23 @@
+[
+    {
+        "nome": "admin",
+        "senha": "1234",
+        "favoritos": [],
+        "is_admin": true
+    },
+    {
+        "nome": "teste",
+        "senha": "1234",
+        "favoritos": [],
+        "is_admin": false
+    },
+    {
+        "nome": "usuario",
+        "senha": "senha",
+        "favoritos": [
+            "Financas Pessoais",
+            "Feira de Livros"
+        ],
+        "is_admin": false
+    }
+]
